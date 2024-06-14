@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import dateFormatter from "../../../components/utils/dateFormatter";
+import { useParams, useNavigate } from "react-router-dom";
+
 
 const TaskGrid = ({ tasks, loading }) => {
+  const navigate = useNavigate();
+  const { id } = useParams();
   return (
     <div className="flex flex-wrap items-stretch gap-4 my-5">
       {loading ? (
@@ -25,6 +29,14 @@ const TaskGrid = ({ tasks, loading }) => {
                 <span className="small-tab">
                   Deadline {dateFormatter(task.deadline)}
                 </span>
+                <button
+              className="btn btn-primary style={{padding: 0.3rem 1rem;}}"
+              onClick={() => {
+                navigate(`/tasks/${id}/edit`);
+              }}
+            >
+              Edit
+            </button>
               </div>
             </Link>
           ))}
