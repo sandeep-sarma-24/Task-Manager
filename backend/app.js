@@ -4,6 +4,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require("dotenv").config();
 const authRoutes = require("./routes/authRoutes");
+const taskRoutes = require("./routes/taskRoutes");
+const profileRoutes = require("./routes/profileRoutes");
 
 app.use(express.json());
 app.use(cors());
@@ -17,6 +19,9 @@ mongoose.connect(mongoUrl).then((res) => {
 });
 
 app.use("/auth", authRoutes);
+app.use("/task", taskRoutes);
+app.use("/profile", profileRoutes);
+
 
 
 const port = process.env.BACKEND_PORT ;
