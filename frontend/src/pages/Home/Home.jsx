@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import "./Home.css";
+import TaskGrid from "./TaskGrid"; // Assuming TaskGrid component is in the same directory
 
 const Home = () => {
     const navigate = useNavigate();
@@ -49,13 +50,7 @@ const Home = () => {
                 {loading ? (
                     <p>Loading...</p>
                 ) : (
-                    <ul className="task-list">
-                        {tasks.map((task) => (
-                            <li className="task-item" key={task.id}>
-                                {task.name}
-                            </li>
-                        ))}
-                    </ul>
+                    <TaskGrid tasks={tasks} loading={loading} />
                 )}
                 <button className="btn btn-primary" onClick={() => navigate("/new_task")}>
                     Add Task
