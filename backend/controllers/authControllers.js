@@ -5,7 +5,7 @@ const { validateEmail } = require('../utils/validation');
 
 exports.signup = async (req, res) => {
     try {
-        const { name , email, password } = req.body;
+        const { name, email, password } = req.body;
         if (!name || !email || !password) {
             return res.status(400).json({ message: 'All fields are required' });
         }
@@ -48,9 +48,8 @@ exports.login = async (req, res) => {
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
-        const accessToken = createAccessToken(user._id);
-        delete user.password;
-        res.status(200).json({ accessToken, user, status: true, msg: "Login successful.." });
+        const accessToken = createAccessToken({ userId: user._id });
+        res.status(200).json({ accessToken, user: { ...user._doc, password: undefined }, status: true, msg: "Login successful.." });
     }
     catch (error) {
         console.error(error);
